@@ -9,6 +9,7 @@ import {
   getContract,
   http,
   parseEther,
+  parseUnits,
   stringToHex,
 } from "viem";
 import { celoAlfajores } from "viem/chains";
@@ -115,18 +116,88 @@ export const useWeb3 = () => {
         _priceFeedId,
       ],
     });
+    const receipt = await publicClient.waitForTransactionReceipt({
+      hash: tx,
+    });
 
-    // const tx1 = await walletClient.writeContract({
-    //   address: MINIPAY_NFT_CONTRACT,
-    //   abi: MinipayNFTABI.abi,
-    //   functionName: "safeMint",
-    //   account: address,
-    //   args: [
-    //     address,
-    //     "https://cdn-production-opera-website.operacdn.com/staticfiles/assets/images/sections/2023/hero-top/products/minipay/minipay__desktop@2x.a17626ddb042.webp",
-    //   ],
-    // });
+    return receipt;
+  };
 
+  const buyShares = async (
+    _marketId: number,
+    _isYes: boolean,
+    _amount: number
+  ) => {
+    let walletClient = createWalletClient({
+      transport: custom(window.ethereum),
+      chain: celoAlfajores,
+    });
+
+    let [address] = await walletClient.getAddresses();
+    // TODO approve allowance for cusd contract
+    // Approve CUSD allowance for Predictly contract
+    const approveTx = await walletClient.writeContract({
+      address: cUSDTokenAddress,
+      abi: StableTokenABI.abi,
+      functionName: "approve",
+      account: address,
+      args: [predictlyContractAddress, parseUnits("1000000", 18)],
+    });
+
+    console.log("Token approval successful");
+
+    await publicClient.waitForTransactionReceipt({
+      hash: approveTx,
+    });
+
+    const tx = await walletClient.writeContract({
+      address: predictlyContractAddress,
+      abi: PredictlyAbi,
+      functionName: "purchaseTokens",
+      account: address,
+      args: [_marketId, _isYes, _amount],
+    });
+    const receipt = await publicClient.waitForTransactionReceipt({
+      hash: tx,
+    });
+
+    return receipt;
+  };
+
+  const sellShares = async (
+    _marketId: number,
+    _isYes: boolean,
+    _amount: number
+  ) => {
+    let walletClient = createWalletClient({
+      transport: custom(window.ethereum),
+      chain: celoAlfajores,
+    });
+
+    let [address] = await walletClient.getAddresses();
+    // TODO approve allowance for cusd contract
+    // Approve CUSD allowance for Predictly contract
+    const approveTx = await walletClient.writeContract({
+      address: cUSDTokenAddress,
+      abi: StableTokenABI.abi,
+      functionName: "approve",
+      account: address,
+      args: [predictlyContractAddress, parseUnits("1000000", 18)],
+    });
+
+    console.log("Token approval successful");
+
+    await publicClient.waitForTransactionReceipt({
+      hash: approveTx,
+    });
+
+    const tx = await walletClient.writeContract({
+      address: predictlyContractAddress,
+      abi: PredictlyAbi,
+      functionName: "sellTokens",
+      account: address,
+      args: [_marketId, _isYes, _amount],
+    });
     const receipt = await publicClient.waitForTransactionReceipt({
       hash: tx,
     });
@@ -166,24 +237,14 @@ export const useWeb3 = () => {
       chain: celoAlfajores,
     });
 
-    const minipayNFTContract = getContract({
-      abi: MinipayNFTABI.abi,
-      address: MINIPAY_NFT_CONTRACT,
+    const predictlyContract = getContract({
+      abi: PredictlyAbi,
+      address: predictlyContractAddress,
       client: publicClient,
     });
-
-    const [address] = await walletClient.getAddresses();
-    const nfts: any = await minipayNFTContract.read.getNFTsByAddress([address]);
-
-    let tokenURIs: string[] = [];
-
-    for (let i = 0; i < nfts.length; i++) {
-      const tokenURI: string = (await minipayNFTContract.read.tokenURI([
-        nfts[i],
-      ])) as string;
-      tokenURIs.push(tokenURI);
-    }
-    return tokenURIs;
+    const markets: any = await predictlyContract.read.listAllMarkets();
+    console.log("markets: ", markets);
+    return markets;
   };
 
   const signTransaction = async () => {
@@ -211,5 +272,7 @@ export const useWeb3 = () => {
     signTransaction,
     createMarket,
     getMarkets,
+    buyShares,
+    sellShares,
   };
 };
