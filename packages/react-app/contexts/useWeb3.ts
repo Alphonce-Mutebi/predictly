@@ -175,21 +175,20 @@ export const useWeb3 = () => {
     });
 
     let [address] = await walletClient.getAddresses();
-    // TODO approve allowance for cusd contract
-    // Approve CUSD allowance for Predictly contract
-    const approveTx = await walletClient.writeContract({
-      address: cUSDTokenAddress,
-      abi: StableTokenABI.abi,
-      functionName: "approve",
-      account: address,
-      args: [predictlyContractAddress, parseUnits("1000000", 18)],
-    });
 
-    console.log("Token approval successful");
+    // const approveTx = await walletClient.writeContract({
+    //   address: cUSDTokenAddress,
+    //   abi: StableTokenABI.abi,
+    //   functionName: "approve",
+    //   account: address,
+    //   args: [predictlyContractAddress, parseUnits("1000000", 18)],
+    // });
 
-    await publicClient.waitForTransactionReceipt({
-      hash: approveTx,
-    });
+    // console.log("Token approval successful");
+
+    // await publicClient.waitForTransactionReceipt({
+    //   hash: approveTx,
+    // });
 
     const tx = await walletClient.writeContract({
       address: predictlyContractAddress,
