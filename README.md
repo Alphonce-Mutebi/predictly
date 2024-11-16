@@ -1,4 +1,4 @@
-# predictly
+# Predictly
 Prediction market on CELO
 
 <!-- TITLE -->

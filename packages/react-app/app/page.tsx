@@ -95,32 +95,6 @@ export default function Home() {
     }
   };
 
-  //   async function signMessage() {
-  //     setCUSDLoading(true);
-  //     try {
-  //       await signTransaction();
-  //       setMessageSigned(true);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setCUSDLoading(false);
-  //     }
-  //   }
-
-  //   async function mintNFT() {
-  //     setNFTLoading(true);
-  //     try {
-  //       const tx = await mintMinipayNFT();
-  //       const tokenURIs = await getNFTs();
-  //       setUserOwnedNFTs(tokenURIs);
-  //       setTx(tx);
-  //     } catch (error) {
-  //       console.log(error);
-  //     } finally {
-  //       setNFTLoading(false);
-  //     }
-  //   }
-
   return (
     <div className="flex flex-col justify-center items-center">
       {!address && (
@@ -146,13 +120,6 @@ export default function Home() {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleCreateMarketSubmit}
         />
-        {/* Create Market Button
-        <button
-          onClick={handleCreateMarket}
-          className="ml-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-        >
-          Create Market
-        </button> */}
       </div>
 
       {address && (
