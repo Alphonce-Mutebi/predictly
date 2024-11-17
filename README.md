@@ -1,5 +1,5 @@
 # Predictly
-Prediction market on CELO using hardha
+Prediction market on CELO.
 
 1. SMART CONTRACT ON ALFAROJES TESTNET: https://celo-alfajores.blockscout.com/address/0x43c9C51A985f0f3Cb4BC3245f233D7d86a6B58c0
 
