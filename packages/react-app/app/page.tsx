@@ -180,7 +180,10 @@ export default function Home() {
                 <p className="text-sm text-gray-600">
                   Total Yes Shares:{" "}
                   <span className="font-medium">
-                    {market.totalYesTokens.toString()}
+                    {(
+                      parseFloat(market.totalYesTokens.toString()) /
+                      10 ** 18
+                    ).toLocaleString()}
                   </span>
                 </p>
                 <p className="text-sm text-gray-600">
