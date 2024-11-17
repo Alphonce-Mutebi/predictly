@@ -1,13 +1,13 @@
 # Predictly
-Prediction market on CELO
+Prediction market on CELO using hardha
+
+1. SMART CONTRACT ON ALFAROJES TESTNET: https://celo-alfajores.blockscout.com/address/0x43c9C51A985f0f3Cb4BC3245f233D7d86a6B58c0
+
+2. Sample transaction creating a market:  https://celo-alfajores.blockscout.com/tx/0xf9f1bc28e3226090bb03465d6a28dd06930443ebc13e7aff7f0d535a576e57c2
+
+3. Sample transactioon buying shares: https://celo-alfajores.blockscout.com/tx/0x856133fa22ee4b331766eead6c65083ce5af8d209ea95033d7ec8259d651f9cc
 
 
-1. Sample transaction creating a market:  https://celo-alfajores.blockscout.com/tx/0xf9f1bc28e3226090bb03465d6a28dd06930443ebc13e7aff7f0d535a576e57c2
-
-2. Sample transactioon buying shares: https://celo-alfajores.blockscout.com/tx/0x856133fa22ee4b331766eead6c65083ce5af8d209ea95033d7ec8259d651f9cc
-
-
-4. SMART CONTRACT ON ALFAROJES TESTNET: https://celo-alfajores.blockscout.com/address/0x43c9C51A985f0f3Cb4BC3245f233D7d86a6B58c0
 
 VIDEO DEMO: https://youtu.be/11n5LXAhiQs
 
